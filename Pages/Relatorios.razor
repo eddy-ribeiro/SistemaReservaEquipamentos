@@ -1,0 +1,44 @@
+﻿@page "/relatorios"
+@inject AppDbContext _context
+
+<h3>Relatórios de Reservas</h3>
+
+@if (reservas.Any())
+{
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Solicitante</th>
+                <th>Equipamento</th>
+                <th>Data</th>
+                <th>Observações</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var reserva in reservas)
+            {
+                <tr>
+                    <td>@reserva.NomeSolicitante</td>
+                    <td>@reserva.Equipamento?.Nome</td>
+                    <td>@reserva.DataReserva.ToShortDateString()</td>
+                    <td>@reserva.Observacoes</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>Nenhuma reserva encontrada.</p>
+}
+
+@code {
+    private List<Reserva> reservas = new();
+
+    protected override async Task OnInitializedAsync()
+    {
+        reservas = await _context.Reservas
+            .Include(r => r.Equipamento)
+            .ToListAsync();
+    }
+}

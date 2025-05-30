@@ -1,0 +1,33 @@
+﻿@page "/equipamentos"
+@inject AppDbContext _context
+
+<h3>Equipamentos</h3>
+
+<input @bind="_novoEquipamento.Nome" placeholder="Nome do Equipamento" />
+<input @bind="_novoEquipamento.Descricao" placeholder="Descrição" />
+<button class="btn btn-primary" @onclick="AdicionarEquipamento">Adicionar</button>
+
+<ul class="list-group mt-3">
+    @foreach (var equipamento in equipamentos)
+    {
+        <li class="list-group-item">@equipamento.Nome - @equipamento.Descricao</li>
+    }
+</ul>
+
+@code {
+    private Equipamento _novoEquipamento = new();
+    private List<Equipamento> equipamentos = new();
+
+    protected override async Task OnInitializedAsync()
+    {
+        equipamentos = await _context.Equipamentos.ToListAsync();
+    }
+
+    private async Task AdicionarEquipamento()
+    {
+        _context.Equipamentos.Add(_novoEquipamento);
+        await _context.SaveChangesAsync();
+        equipamentos = await _context.Equipamentos.ToListAsync();
+        _novoEquipamento = new();
+    }
+}

@@ -1,0 +1,45 @@
+﻿@page "/novareserva"
+@inject AppDbContext _context
+
+<h3>Nova Reserva</h3>
+
+<div class="form-group">
+    <label>Nome do Solicitante</label>
+    <input class="form-control" @bind="reserva.NomeSolicitante" />
+</div>
+<div class="form-group">
+    <label>Data da Reserva</label>
+    <input class="form-control" type="date" @bind="reserva.DataReserva" />
+</div>
+<div class="form-group">
+    <label>Equipamento</label>
+    <select class="form-control" @bind="reserva.EquipamentoId">
+        <option value="">Selecione</option>
+        @foreach (var equipamento in equipamentos)
+        {
+            <option value="@equipamento.Id">@equipamento.Nome</option>
+        }
+    </select>
+</div>
+<div class="form-group">
+    <label>Observações</label>
+    <textarea class="form-control" @bind="reserva.Observacoes"></textarea>
+</div>
+<button class="btn btn-primary mt-2" @onclick="SalvarReserva">Salvar Reserva</button>
+
+@code {
+    private Reserva reserva = new();
+    private List<Equipamento> equipamentos = new();
+
+    protected override async Task OnInitializedAsync()
+    {
+        equipamentos = await _context.Equipamentos.ToListAsync();
+    }
+
+    private async Task SalvarReserva()
+    {
+        _context.Reservas.Add(reserva);
+        await _context.SaveChangesAsync();
+        reserva = new(); // limpar formulário
+    }
+}
