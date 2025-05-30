@@ -20,7 +20,17 @@ Deploy: Azure App Service (opcional)
 
 📸 Screenshots
 Tela de Login	Tela de Reserva
-<img src="https://github.com/eddy-ribeiro/SistemaReservaEquipamentos/blob/main/TelaNovareserva.png" width="200">	<img src="https://github.com/eddy-ribeiro/SistemaReservaEquipamentos/blob/main/TelaDashboard.png" width="200">
+
+<img src="https://github.com/eddy-ribeiro/SistemaReservaEquipamentos/blob/main/TelaNovareserva.png" width="200">	
+
+
+
+
+<img src="https://github.com/eddy-ribeiro/SistemaReservaEquipamentos/blob/main/TelaDashboard.png" width="200">
+
+
+
+
 📝 Licença
 Este projeto está sob a licença MIT. Veja o arquivo LICENSE para detalhes.
 
